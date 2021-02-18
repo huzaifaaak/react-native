@@ -607,11 +607,11 @@ exports.examples = [
     render: function(): React.Node {
       return (
         <Image
-          accessible={true}
+          accessible
           accessibilityLabel={'This is image accessibility label'}
+          accessibilityState={{selected: true}}
           source={fullImage}
           style={styles.base}
-          accessibilityState={{disabled: true}}
         />
       );
     },
