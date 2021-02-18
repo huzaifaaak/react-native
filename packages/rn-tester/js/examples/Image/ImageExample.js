@@ -607,6 +607,8 @@ exports.examples = [
     render: function(): React.Node {
       return (
         <Image
+          accessible={true}
+          accessibilityLabel={'This is image accessibility label'}
           source={fullImage}
           style={styles.base}
           accessibilityState={{disabled: true}}

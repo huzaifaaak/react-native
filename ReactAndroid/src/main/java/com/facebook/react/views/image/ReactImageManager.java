@@ -11,6 +11,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import androidx.annotation.Nullable;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import android.view.accessibility.AccessibilityEvent;
+import com.facebook.react.R;
 import com.facebook.drawee.controller.AbstractDraweeControllerBuilder;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReadableArray;
@@ -103,6 +105,7 @@ public class ReactImageManager extends SimpleViewManager<ReactImageView> {
     return mCallerContext;
   }
 
+
   @Override
   public ReactImageView createViewInstance(ThemedReactContext context) {
     Object callerContext =
@@ -111,6 +114,40 @@ public class ReactImageManager extends SimpleViewManager<ReactImageView> {
             : getCallerContext();
     return new ReactImageView(
         context, getDraweeControllerBuilder(), mGlobalImageLoadListener, callerContext);
+  }
+
+  @ReactProp(name = "accessible", defaultBoolean = false)
+  public void setImageFocusable(ReactImageView view, boolean focusable){
+    view.setFocusable(focusable); 
+  }
+
+  @ReactProp(name = "accessibilityLabel")
+  public void setImageContent(ReactImageView view, String label){
+    if(label != null){
+      System.out.println("*******Setting up accessibilityLabel*******" + label);
+      view.setContentDescription(label);
+    }
+  }
+
+  @Override
+  @ReactProp(name = ViewProps.ACCESSIBILITY_STATE)
+  public void setViewState(ReactImageView view, @Nullable ReadableMap accessibilityState) {
+  //Get this from accessible = true
+  // view.setFocusable(true); 
+  System.out.println("********Hello i am in image ACCESSIBILITY_STATE***** before");
+  System.out.println(accessibilityState);
+  if (accessibilityState == null) {
+        return;
+      }
+    view.setTag(R.id.accessibility_state, accessibilityState);
+    view.setSelected(false);
+    view.setEnabled(true);
+    // view.setContentDescription("");
+    if(view.isAccessibilityFocused()){
+      System.out.println("In isAccessibilityFocused");
+      view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
+    }
+    System.out.println("********Hello i am in image ACCESSIBILITY_STATE*****");
   }
 
   // In JS this is Image.props.source

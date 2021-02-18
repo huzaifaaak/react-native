@@ -286,6 +286,7 @@ let Image = (props: ImagePropsType, forwardedRef) => {
   }
 
   const {onLoadStart, onLoad, onLoadEnd, onError} = props;
+  console.log('*******acc props in image ', props.accessibilityState);
   const nativeProps = {
     ...props,
     style,
