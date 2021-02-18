@@ -605,7 +605,13 @@ exports.examples = [
     description: ('If the `source` prop `uri` property is prefixed with ' +
       '"http", then it will be downloaded from the network.': string),
     render: function(): React.Node {
-      return <Image source={fullImage} style={styles.base} />;
+      return (
+        <Image
+          source={fullImage}
+          style={styles.base}
+          accessibilityState={{disabled: true}}
+        />
+      );
     },
   },
   {
@@ -616,6 +622,9 @@ exports.examples = [
       return (
         <View style={styles.horizontal}>
           <Image
+            accessible={true}
+            accessibilityRole={'image'}
+            accessibilityState={{disabled: true}}
             source={require('../../assets/uie_thumb_normal.png')}
             style={styles.icon}
           />
