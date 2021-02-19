@@ -609,7 +609,6 @@ exports.examples = [
         <Image
           accessible
           accessibilityLabel={'This is image accessibility label'}
-          accessibilityState={{selected: true}}
           source={fullImage}
           style={styles.base}
         />
@@ -626,7 +625,6 @@ exports.examples = [
           <Image
             accessible={true}
             accessibilityRole={'image'}
-            accessibilityState={{disabled: true}}
             source={require('../../assets/uie_thumb_normal.png')}
             style={styles.icon}
           />

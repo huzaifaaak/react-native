@@ -118,7 +118,12 @@ public class ReactImageManager extends SimpleViewManager<ReactImageView> {
 
   @ReactProp(name = "accessible", defaultBoolean = false)
   public void setImageFocusable(ReactImageView view, boolean focusable){
-    view.setFocusable(focusable); 
+    if(focusable) {
+      view.setFocusable(focusable); 
+      // if(view.isAccessibilityFocused()){
+      //   view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
+      // }
+    }
   }
 
   @ReactProp(name = "accessibilityLabel")
@@ -126,17 +131,17 @@ public class ReactImageManager extends SimpleViewManager<ReactImageView> {
       view.setContentDescription(label);
   }
 
-  @Override
-  @ReactProp(name = ViewProps.ACCESSIBILITY_STATE)
-  public void setViewState(ReactImageView view, @Nullable ReadableMap accessibilityState) {
-  if (accessibilityState == null) {
-        return;
-      }
-    view.setTag(R.id.accessibility_state, accessibilityState);
-    if(view.isAccessibilityFocused()){
-      view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
-    }
-  }
+  // @Override
+  // @ReactProp(name = ViewProps.ACCESSIBILITY_STATE)
+  // public void setViewState(ReactImageView view, @Nullable ReadableMap accessibilityState) {
+  // if (accessibilityState == null) {
+  //       return;
+  //     }
+  //   view.setTag(R.id.accessibility_state, accessibilityState);
+  //   if(view.isAccessibilityFocused()){
+  //     view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
+  //   }
+  // }
 
   // In JS this is Image.props.source
   @ReactProp(name = "src")
